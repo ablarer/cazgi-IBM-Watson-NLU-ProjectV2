@@ -35,10 +35,7 @@ app.get("/url/emotion", (req,res) => {
     const analyzeParams = {
         'url': req.query.url,
         'features': {
-            'entities': {
-                'emotion': true,
-                'limit': 1
-            }
+                'emotion': {}
         }
     };
 
@@ -46,7 +43,8 @@ app.get("/url/emotion", (req,res) => {
 
     nlu.analyze(analyzeParams)
     .then(analysisResults => {
-        return res.send(analysisResults.result.entities[0].emotion, null, 2);
+        console.log(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2))    
     })
     .catch(err => {
         console.log('error:', err);
@@ -58,10 +56,7 @@ app.get("/url/sentiment", (req,res) => {
     const analyzeParams = {
         'url': req.query.url,
         'features': {
-            'entities': {
-                'sentiment': true,
-                'limit': 1
-            }
+            'sentiment': {}
         }
     };
 
@@ -69,7 +64,8 @@ app.get("/url/sentiment", (req,res) => {
 
     nlu.analyze(analyzeParams)
     .then(analysisResults => {
-        return res.send(analysisResults.result.entities[0].sentiment.label, null, 2);
+        console.log(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.sentiment.document.label,null,2))    
     })
     .catch(err => {
         console.log('error:', err);
@@ -81,8 +77,7 @@ app.get("/text/emotion", (req,res) => {
     const analyzeParams = {
         'text': req.query.text,
         'features': {
-            'emotion': {
-            }
+            'emotion': {}
         }
     };
 
@@ -90,7 +85,8 @@ app.get("/text/emotion", (req,res) => {
 
     nlu.analyze(analyzeParams)
     .then(analysisResults => {
-        return res.send(analysisResults.result.emotion.document.emotion);
+        console.log(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2))    
     })
     .catch(err => {
         console.log('error:', err);
@@ -102,8 +98,7 @@ app.get("/text/sentiment", (req,res) => {
     const analyzeParams = {
         'text': req.query.text,
         'features': {
-            'sentiment': {
-            }
+            'sentiment': {}
         }
     };
 
@@ -111,7 +106,8 @@ app.get("/text/sentiment", (req,res) => {
 
     nlu.analyze(analyzeParams)
     .then(analysisResults => {
-        return res.send(analysisResults.result.sentiment.document.label);
+        console.log(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.sentiment.document.label,null,2))    
     })
     .catch(err => {
         console.log('error:', err);
